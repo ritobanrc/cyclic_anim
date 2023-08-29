@@ -3,7 +3,7 @@ mod math;
 
 use crate::math::*;
 use argmin::core::observers::{ObserverMode, SlogLogger};
-use argmin::core::{CostFunction, Error, Executor, Solver};
+use argmin::core::{CostFunction, Error, Executor};
 use argmin::solver::neldermead::NelderMead;
 use ndarray::Array1;
 use rand::prelude::*;
@@ -120,7 +120,7 @@ fn main() {
     let init_points: Vec<Array1<Real>> = (0..dim).map(|_| gen_random_anim()).collect();
 
     let opt = NelderMead::new(init_points);
-    let res = Executor::new(sim, opt)
+    let _res = Executor::new(sim, opt)
         .configure(|state| state.max_iters(100))
         .add_observer(SlogLogger::term(), ObserverMode::Always)
         .run()
